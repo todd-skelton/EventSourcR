@@ -6,8 +6,10 @@ namespace EventSourcR.Extensions
     {
         public static T BuildState<T>(this IEnumerable<IEvent<T>> events, T aggregate) where T : IAggregate<T>
         {
-            aggregate.BuildState(events);
-
+            foreach(var @event in events)
+            {
+                aggregate.Apply(@event);
+            }
             return aggregate;
         }
     }

@@ -10,7 +10,7 @@ namespace EventSourcR
     {
         long PendingVersion { get; }
         IEnumerable<IEvent<T>> PendingEvents { get; }
-        void BuildState(IEnumerable<IEvent<T>> events);
+        void Apply(IEvent<T> events);
         void ClearPendingEvents();
     }
 }

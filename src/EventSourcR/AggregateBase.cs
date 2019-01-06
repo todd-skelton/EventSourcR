@@ -18,14 +18,11 @@ namespace EventSourcR
 
         public virtual IEnumerable<IEvent<T>> PendingEvents => _pendingEvents.AsReadOnly();
 
-        public virtual void BuildState(IEnumerable<IEvent<T>> events)
+        public virtual void Apply(IEvent<T> @event)
         {
-            foreach (var @event in events)
-            {
-                Apply(@event);
-                Version++;
-            }
-            PendingVersion = Version;
+            Handle(@event);
+            Version++;
+            PendingVersion++;
         }
 
         public virtual void ClearPendingEvents()
@@ -40,13 +37,8 @@ namespace EventSourcR
 
         protected virtual void RaiseEvent(IEvent<T> @event)
         {
-            Apply(@event);
-            _pendingEvents.Add(@event);
-        }
-
-        private void Apply(IEvent<T> @event)
-        {
             Handle(@event);
+            _pendingEvents.Add(@event);
             PendingVersion++;
         }
     }
