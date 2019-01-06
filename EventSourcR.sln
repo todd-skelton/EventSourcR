@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcR", "src\EventSou
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "samples\ConsoleApp\ConsoleApp.csproj", "{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InMemorySample", "samples\InMemorySample\InMemorySample.csproj", "{889184B5-D254-46EF-9BD5-AC94199C45B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcR.Abstractions", "src\EventSourcR.Abstractions\EventSourcR.Abstractions.csproj", "{FB2D3F69-3616-4731-A53E-8641C6E0A87F}"
@@ -34,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{EF218427
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCoreSample", "samples\EfCoreSample\EfCoreSample.csproj", "{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcR.SqlServer.Reactive", "src\EventSourcR.SqlServer.Reactive\EventSourcR.SqlServer.Reactive.csproj", "{4ACE7E29-FD95-481A-9420-F8792A74DB5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,10 +46,6 @@ Global
 		{22A278EA-D6DE-400E-B6F2-36EF95A19B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22A278EA-D6DE-400E-B6F2-36EF95A19B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22A278EA-D6DE-400E-B6F2-36EF95A19B67}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835}.Release|Any CPU.Build.0 = Release|Any CPU
 		{889184B5-D254-46EF-9BD5-AC94199C45B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{889184B5-D254-46EF-9BD5-AC94199C45B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{889184B5-D254-46EF-9BD5-AC94199C45B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -88,15 +86,23 @@ Global
 		{7EF30331-5513-49BA-8C8B-C3726A71E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF30331-5513-49BA-8C8B-C3726A71E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF30331-5513-49BA-8C8B-C3726A71E472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ACE7E29-FD95-481A-9420-F8792A74DB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ACE7E29-FD95-481A-9420-F8792A74DB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ACE7E29-FD95-481A-9420-F8792A74DB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ACE7E29-FD95-481A-9420-F8792A74DB5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2A57A6E1-ECF8-4A5C-A6C1-BC4142A96835} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 		{889184B5-D254-46EF-9BD5-AC94199C45B1} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 		{037E96F8-D9CC-4794-82A5-4A6DD253BECD} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 		{7EF30331-5513-49BA-8C8B-C3726A71E472} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
+		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BF3A756-D3F6-4C8E-A381-4CAC3DE8E02F}
