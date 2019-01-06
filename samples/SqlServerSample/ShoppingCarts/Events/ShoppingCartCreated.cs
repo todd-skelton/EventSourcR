@@ -11,5 +11,7 @@ namespace SqlServerSample.ShoppingCarts.Events
         }
 
         public Guid? CustomerId { get; }
+
+        public override string ToString() => $"Shopping cart created for customer: {CustomerId}";
     }
 }

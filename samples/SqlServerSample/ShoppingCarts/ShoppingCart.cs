@@ -38,4 +38,18 @@ namespace SqlServerSample.ShoppingCarts
             }
         }
     }
+
+    public class ShoppingCartState
+    {
+        public ShoppingCartState(Guid id, Guid? customerId, decimal total)
+        {
+            Id = id;
+            CustomerId = customerId;
+            Total = total;
+        }
+
+        public Guid Id { get; }
+        public Guid? CustomerId { get; }
+        public decimal Total { get; }
+    }
 }

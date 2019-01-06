@@ -3,6 +3,7 @@ using EventSourcR;
 using EventSourcR.Extensions;
 using EventSourcR.JsonEventSerializer;
 using EventSourcR.SqlServer;
+using EventSourcR.SqlServer.Reactive;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SqlServerSample.ShoppingCarts;
@@ -32,6 +33,7 @@ namespace SqlServerSample
                 services.AddTransient<IEventStore, EventStore>();
                 services.AddTransient<IPendingEventFactory, PendingEventFactory>();
                 services.AddTransient<IRepository<ShoppingCart>, Repository<ShoppingCart>>();
+                services.AddSingleton<IEventReactor, EventReactor>();
             })
             .Execute<TestWriteThroughput>()
             .Build();
