@@ -19,7 +19,7 @@ namespace EventSourcR.SqlServer
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
-        public Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
+        public virtual Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
         {
             return Task.Run(() =>
             {
@@ -42,28 +42,29 @@ namespace EventSourcR.SqlServer
                             command.Parameters.AddWithValue("@recorded", DateTimeOffset.Now);
                             command.ExecuteNonQuery();
                         }
+
                         transaction.Commit();
                     }
                 }
             });
         }
 
-        public Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
+        public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
+        public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IRecordedEvent>> GetEvents(long fromEventNumber, int maxCount)
+        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents(long fromEventNumber, int maxCount)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IRecordedEvent>> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
+        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
         {
             throw new NotImplementedException();
         }

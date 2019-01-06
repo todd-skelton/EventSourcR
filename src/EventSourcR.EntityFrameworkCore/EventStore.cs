@@ -19,9 +19,9 @@ namespace EventSourcR.EntityFrameworkCore
 
         private DbSet<RecordedEventEntity> Events { get; set; }
 
-        public async Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
+        public Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
         {
-            if (!pendingEvents.Any()) return;
+            if (!pendingEvents.Any()) return Task.CompletedTask;
 
             foreach (var @event in pendingEvents)
             {
@@ -30,27 +30,27 @@ namespace EventSourcR.EntityFrameworkCore
                 Events.Add(recordedEvent);
             }
 
-            await SaveChangesAsync();
+            return SaveChangesAsync();
         }
 
-        public IEnumerable<IRecordedEvent> GetEvents(long fromEventNumber, int maxCount)
+        public Task<IEnumerable<IRecordedEvent>> GetEvents(long fromEventNumber, int maxCount)
         {
-            return Transform(Events.Where(e => e.EventNumber >= fromEventNumber).Take(maxCount));
+            return Task.FromResult(Transform(Events.Where(e => e.EventNumber >= fromEventNumber).Take(maxCount)));
         }
 
-        public IEnumerable<IRecordedEvent> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
+        public Task<IEnumerable<IRecordedEvent>> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
         {
-            return Transform(Events.Where(e => e.EventNumber >= fromEventNumber && e.EventType == _typeMapper.GetEventName<T>()).Take(maxCount));
+            return Task.FromResult(Transform(Events.Where(e => e.EventNumber >= fromEventNumber && e.EventType == _typeMapper.GetEventName<T>()).Take(maxCount)));
         }
 
-        public IEnumerable<IRecordedEvent> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
+        public Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
         {
-            return Transform(Events.Where(e => e.EventNumber >= fromEventNumber && e.AggregateType == _typeMapper.GetAggregateName<T>()).Take(maxCount));
+            return Task.FromResult(Transform(Events.Where(e => e.EventNumber >= fromEventNumber && e.AggregateType == _typeMapper.GetAggregateName<T>()).Take(maxCount)));
         }
 
-        public IEnumerable<IRecordedEvent> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
+        public Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
         {
-            return Transform(Events.Where(e => e.AggregateId == id && e.AggregateVersion >= fromAggregateVersion).Take(maxCount));
+            return Task.FromResult(Transform(Events.Where(e => e.AggregateId == id && e.AggregateVersion >= fromAggregateVersion).Take(maxCount)));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace EventSourcR.EntityFrameworkCore
             });
         }
 
-        private IEnumerable<RecordedEvent> Transform(IEnumerable<RecordedEventEntity> entities)
+        private IEnumerable<IRecordedEvent> Transform(IEnumerable<RecordedEventEntity> entities)
         {
             foreach (var entity in entities)
             {

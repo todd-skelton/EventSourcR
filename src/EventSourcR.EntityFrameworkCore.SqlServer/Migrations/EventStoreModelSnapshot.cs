@@ -15,7 +15,7 @@ namespace EventSourcR.EntityFrameworkCore.SqlServer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "3.0.0-preview.18572.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -39,7 +39,7 @@ namespace EventSourcR.EntityFrameworkCore.SqlServer.Migrations
 
                     b.Property<string>("SerializedData");
 
-                    b.Property<string>("SerializedMetaData");
+                    b.Property<string>("SerializedMetadata");
 
                     b.HasKey("EventNumber");
 

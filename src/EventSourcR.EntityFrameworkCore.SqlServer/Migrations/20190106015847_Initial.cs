@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EventSourcR.EntityFrameworkCore.SqlServer.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,7 @@ namespace EventSourcR.EntityFrameworkCore.SqlServer.Migrations
                     AggregateType = table.Column<string>(nullable: true),
                     AggregateVersion = table.Column<long>(nullable: false),
                     SerializedData = table.Column<string>(nullable: true),
-                    SerializedMetaData = table.Column<string>(nullable: true),
+                    SerializedMetadata = table.Column<string>(nullable: true),
                     Recorded = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
