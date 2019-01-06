@@ -31,6 +31,4 @@ namespace InMemorySample
             .Execute<App>()
             .Build();
     }
-
-
 }
