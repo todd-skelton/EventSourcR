@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ConsoleBuildR" Version="3.0.0-dev-201901031437" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\EventSourcR.EventStore\EventSourcR.EventStore.csproj" />
+    <ProjectReference Include="..\..\src\EventSourcR.JsonEventSerializer\EventSourcR.JsonEventSerializer.csproj" />
+    <ProjectReference Include="..\..\src\EventSourcR\EventSourcR.csproj" />
+  </ItemGroup>
+
+</Project>

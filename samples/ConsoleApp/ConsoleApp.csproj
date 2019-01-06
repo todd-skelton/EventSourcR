@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ConsoleBuildR" Version="2.2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ReadOnlyExtensions" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\EventSourcR.EntityFrameworkCore.SqlServer\EventSourcR.EntityFrameworkCore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\EventSourcR.EntityFrameworkCore\EventSourcR.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\EventSourcR.JsonEventSerializer\EventSourcR.JsonEventSerializer.csproj" />
+    <ProjectReference Include="..\..\src\EventSourcR\EventSourcR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
