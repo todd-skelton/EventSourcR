@@ -35,7 +35,7 @@ namespace SqlServerSample
                 services.AddTransient<IRepository<ShoppingCart>, Repository<ShoppingCart>>();
                 services.AddSingleton<IEventReactor, EventReactor>();
             })
-            .Execute<TestWriteThroughput>()
+            .Execute<LoadTestShoppingCart>()
             .Build();
     }
 }

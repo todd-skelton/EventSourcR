@@ -4,17 +4,17 @@ namespace SqlServerSample.ShoppingCarts
 {
     public class Product
     {
-        public Product(Guid id, string name, decimal price, string quantity)
+        public Product(Guid productId, string name, decimal price, int quantity)
         {
-            Id = id;
+            ProductId = productId;
             Name = name;
             Price = price;
             Quantity = quantity;
         }
 
-        public Guid Id { get; }
+        public Guid ProductId { get; }
         public string Name { get; }
         public decimal Price { get; }
-        public string Quantity { get; }
+        public int Quantity { get; }
     }
 }
