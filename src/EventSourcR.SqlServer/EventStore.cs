@@ -52,65 +52,67 @@ namespace EventSourcR.SqlServer
 
         public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
         {
-            using(var connection = new SqlConnection(_options.ConnectionString))
-            {
-                var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE AggregateType = '{_typeMapper.GetAggregateName<T>()}' AND EventNumber >= {fromEventNumber}";
+            var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE EventNumber >= {fromEventNumber} AND AggregateType = '{_typeMapper.GetAggregateName<T>()}'";
 
+            return Task.Run(() => QueryEvents(query));
+        }
+
+        public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
+        {
+            var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE AggregateId = '{id}' AND AggregateVersion >= {fromAggregateVersion}";
+
+            return Task.Run(() => QueryEvents(query));
+        }
+
+        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents(long fromEventNumber, int maxCount)
+        {
+            var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE EventNumber >= {fromEventNumber}";
+
+            return Task.Run(() => QueryEvents(query));
+        }
+
+        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
+        {
+            var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE EventNumber >= {fromEventNumber} AND EventType = '{_typeMapper.GetEventName<T>()}'";
+
+            return Task.Run(() => QueryEvents(query));
+        }
+
+        private IEnumerable<IRecordedEvent> QueryEvents(string query)
+        {
+            using (var connection = new SqlConnection(_options.ConnectionString))
+            {
                 var command = new SqlCommand(query, connection);
 
                 connection.Open();
 
                 var reader = command.ExecuteReader();
 
-                var results = new List<IRecordedEvent>();
-
                 while (reader.Read())
                 {
-                    results.Add(Transform(reader));
+                    var eventNumber = reader.GetInt64(0);
+                    var eventId = reader.GetGuid(1);
+                    var eventType = reader.GetString(2);
+                    var aggregateId = reader.GetGuid(3);
+                    var aggregateType = reader.GetString(4);
+                    var aggregateVersion = reader.GetInt64(5);
+                    var serializedData = reader.GetString(6);
+                    var serializedMetadata = reader.GetString(7);
+                    var recorded = reader.GetDateTimeOffset(8);
+
+                    yield return new RecordedEvent(
+                        eventNumber,
+                        eventId,
+                        eventType,
+                        aggregateId,
+                        aggregateType,
+                        aggregateVersion,
+                        _serializer.Deserialize(serializedData, _typeMapper.GetEventType(eventType)) as IEvent,
+                        _serializer.Deserialize(serializedMetadata, _typeMapper.GetMetadataType(eventType)) as IMetadata,
+                        recorded
+                        );
                 }
-
-                return Task.FromResult(results.AsEnumerable());
             }
-        }
-
-        public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(Guid id, long fromAggregateVersion, int maxCount) where T : IAggregate
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents(long fromEventNumber, int maxCount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Task<IEnumerable<IRecordedEvent>> GetEvents<T>(long fromEventNumber, int maxCount) where T : IEvent
-        {
-            throw new NotImplementedException();
-        }
-
-        private IRecordedEvent Transform(SqlDataReader reader)
-        {
-            var eventNumber = reader.GetInt64(0);
-            var eventId = reader.GetGuid(1);
-            var eventType = reader.GetString(2);
-            var aggregateId = reader.GetGuid(3);
-            var aggregateType = reader.GetString(4);
-            var aggregateVersion = reader.GetInt64(5);
-            var serializedData = reader.GetString(6);
-            var serializedMetadata = reader.GetString(7);
-            var recorded = reader.GetDateTimeOffset(8);
-
-            return new RecordedEvent(
-                eventNumber,
-                eventId,
-                eventType,
-                aggregateId,
-                aggregateType,
-                aggregateVersion,
-                _serializer.Deserialize(serializedData, _typeMapper.GetEventType(eventType)) as IEvent,
-                _serializer.Deserialize(serializedMetadata, _typeMapper.GetMetadataType(eventType)) as IMetadata,
-                recorded
-                );
         }
     }
 }
