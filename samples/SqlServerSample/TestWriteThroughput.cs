@@ -6,6 +6,7 @@ using SqlServerSample.ShoppingCarts;
 using SqlServerSample.ShoppingCarts.Commands;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace SqlServerSample
 
             Console.WriteLine($"{allEvents.Count()} events to process.");
 
-            foreach(var events in allEvents.GroupBy(e => e.AggregateId))
+            foreach (var events in allEvents.GroupBy(e => e.AggregateId))
             {
                 var cart = new ShoppingCart(events.Key);
 
@@ -58,14 +59,14 @@ namespace SqlServerSample
                 }
             });
 
-            var start = DateTimeOffset.Now;
+            var stopWatch = new Stopwatch();
 
             var tasks = new List<Task>();
 
             var max = 10;
 
             Console.WriteLine($"Testing {max} events");
-
+            stopWatch.Start();
             for (var x = 0; x < max; x++)
             {
                 var task = Task.Run(async () =>
@@ -85,23 +86,24 @@ namespace SqlServerSample
                         await repository.Save(shoppingCart);
                     }
                 });
-
+                  
+                
                 tasks.Add(task);
             }
 
             await Task.WhenAll(tasks);
+            stopWatch.Stop();
+            var time = stopWatch.Elapsed;
 
-            var end = DateTimeOffset.Now;
+            Console.WriteLine($"{max} shopping carts took {time.TotalSeconds:#.##} seconds.");
 
-            var time = end - start;
-
-            Console.WriteLine($"{max} shopping carts took {time.TotalSeconds:#} seconds.");
-
-            Console.WriteLine($"Throughput: {max / time.TotalSeconds:#} per second");
+            Console.WriteLine($"Throughput: {max / time.TotalSeconds:#.##} per second");
 
             Thread.Sleep(5000);
 
             Console.WriteLine($"{_carts.Count} carts now in memory.");
+
+            Console.ReadLine();
 
             sub.Dispose();
 

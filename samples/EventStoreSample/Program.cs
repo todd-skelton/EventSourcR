@@ -8,6 +8,7 @@ using EventStoreSample.Tickets.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -56,9 +57,12 @@ namespace EventStoreSample
 
         public async Task Execute(string[] args)
         {
-            var start = DateTimeOffset.Now;
+            var stopWatch = new Stopwatch();
             var rand = new Random();
             var tasks = new List<Task>();
+
+            stopWatch.Start();
+
             for (var x = 0; x < 1000; x++)
             {
                 tasks.Add(Task.Run(async () =>
@@ -84,9 +88,9 @@ namespace EventStoreSample
 
             await Task.WhenAll(tasks);
 
-            var end = DateTimeOffset.Now;
+            stopWatch.Stop();
 
-            var time = end - start;
+            var time = stopWatch.Elapsed;
 
             Console.WriteLine($"1000 Tickets took {time}");
 

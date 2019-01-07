@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace EfCoreSample
 {
@@ -20,9 +21,11 @@ namespace EfCoreSample
 
         public async Task Execute(string[] args)
         {
-            var start = DateTimeOffset.Now;
+            var stopWatch = new Stopwatch();
             var rand = new Random();
             var tasks = new List<Task>();
+
+            stopWatch.Start();
             for (var x = 0; x < 1000; x++)
             {
                 tasks.Add(Task.Run(async () =>
@@ -47,10 +50,9 @@ namespace EfCoreSample
 
             }
             await Task.WhenAll(tasks);
+            stopWatch.Stop();
 
-            var end = DateTimeOffset.Now;
-
-            var time = end - start;
+            var time = stopWatch.Elapsed;
 
             Console.WriteLine($"1000 Orders took {time}");
 
