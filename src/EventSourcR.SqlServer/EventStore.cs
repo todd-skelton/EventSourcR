@@ -50,6 +50,27 @@ namespace EventSourcR.SqlServer
             });
         }
 
+        public virtual Task<long> GetLastestEventNumber()
+        {
+            var query = $"SELECT MAX(EventNumber) FROM {_options.EventsTableName}";
+
+            return Task.Run(() =>
+            {
+                using (var connection = new SqlConnection(_options.ConnectionString))
+                {
+                    var command = new SqlCommand(query, connection);
+
+                    connection.Open();
+
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+
+                    return reader.GetInt64(0);
+                }
+            });
+        }
+
         public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate
         {
             var query = $"SELECT TOP ({maxCount}) {_eventColumns} FROM {_options.EventsTableName} WHERE EventNumber >= {fromEventNumber} AND AggregateType = '{_typeMapper.GetAggregateName<T>()}'";

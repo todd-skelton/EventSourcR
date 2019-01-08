@@ -52,5 +52,10 @@ namespace EventSourcR.InMemory
         {
             return Task.FromResult(_events.Where(e => e.AggregateId == id && e.AggregateVersion >= fromAggregateVersion).Take(maxCount));
         }
+
+        public Task<long> GetLastestEventNumber()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

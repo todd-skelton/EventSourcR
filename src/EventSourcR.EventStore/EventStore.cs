@@ -54,5 +54,10 @@ namespace EventSourcR.EventStore
         {
             throw new NotImplementedException();
         }
+
+        public Task<long> GetLastestEventNumber()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

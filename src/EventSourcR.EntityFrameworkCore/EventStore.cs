@@ -84,5 +84,10 @@ namespace EventSourcR.EntityFrameworkCore
                 );
             }
         }
+
+        public Task<long> GetLastestEventNumber()
+        {
+            return Events.MaxAsync(e => e.EventNumber);
+        }
     }
 }
