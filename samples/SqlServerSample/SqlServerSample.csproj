@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\EventSourcR.JsonEventSerializer\EventSourcR.JsonEventSerializer.csproj" />
-    <ProjectReference Include="..\..\src\EventSourcR.SqlServer.Reactive\EventSourcR.SqlServer.Reactive.csproj" />
     <ProjectReference Include="..\..\src\EventSourcR.SqlServer\EventSourcR.SqlServer.csproj" />
   </ItemGroup>
 
