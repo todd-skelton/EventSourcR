@@ -27,7 +27,6 @@
 using EventSourcR.SqlServer.Reactive.Base;
 using EventSourcR.SqlServer.Reactive.Base.Abstracts;
 using EventSourcR.SqlServer.Reactive.Base.Enums;
-using EventSourcR.SqlServer.Reactive.Base.EventArgs;
 using EventSourcR.SqlServer.Reactive.Base.Exceptions;
 using EventSourcR.SqlServer.Reactive.Enumerations;
 using EventSourcR.SqlServer.Reactive.Exceptions;
@@ -155,14 +154,6 @@ namespace EventSourcR.SqlServer.Reactive
         #endregion
 
         #region Protected virtual methods
-
-        public void Changed(object sender, EventsRecordedEventArgs e)
-        {
-            foreach(var recordedEvent in e.Events)
-            {
-                _eventSubject.OnNext(recordedEvent);
-            }
-        }
 
         protected virtual string Spacer(int numberOrSpaces)
         {

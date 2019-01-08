@@ -24,7 +24,6 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using EventSourcR.SqlServer.Reactive.Base.Delegates;
 using EventSourcR.SqlServer.Reactive.Base.Enums;
 using System;
 using System.Diagnostics;
