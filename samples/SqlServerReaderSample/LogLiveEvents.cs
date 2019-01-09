@@ -61,7 +61,7 @@ namespace SqlServerReaderSample
 
             var stopWatch = new Stopwatch();
 
-            long currentEvent = 364064;
+            long currentEvent = await _store.GetLastestEventNumber();
 
             while(stopWatch.Elapsed < TimeSpan.FromMinutes(1))
             {
