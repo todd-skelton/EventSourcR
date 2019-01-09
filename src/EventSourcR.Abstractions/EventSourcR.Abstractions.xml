@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventSourcR.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:EventSourcR.IAggregate`1">
+            <summary>
+            An aggregate root.
+            </summary>
+            <typeparam name="T">The type of stream the aggregate belongs to.</typeparam>
+        </member>
+        <member name="T:EventSourcR.ICommand`1">
+            <summary>
+            A command.
+            </summary>
+            <typeparam name="T">The type of aggregate the command belongs to.</typeparam>
+        </member>
+        <member name="T:EventSourcR.IEventStore">
+            <summary>
+            Stores events.
+            </summary>
+        </member>
+        <member name="T:EventSourcR.IEvent`1">
+            <summary>
+            An event.
+            </summary>
+            <typeparam name="T">The type of stream this event belongs to.</typeparam>
+        </member>
+        <member name="T:EventSourcR.IRepository`1">
+            <summary>
+            Save and retrieve aggregates.
+            </summary>
+            <typeparam name="T">The type of aggregate being stored.</typeparam>
+        </member>
+        <member name="M:EventSourcR.IRepository`1.Load(`0,System.Nullable{System.Int64})">
+            <summary>
+            Loads the aggregate with the events from the event store.
+            </summary>
+            <param name="aggregate">The aggregate to load with its id set.</param>
+            <param name="toVersion">Aggregate version to end with.</param>
+            <returns>The loaded aggregate.</returns>
+        </member>
+        <member name="T:EventSourcR.ITypeMapper">
+            <summary>
+            Gets a type using a configured name.
+            </summary>
+        </member>
+    </members>
+</doc>

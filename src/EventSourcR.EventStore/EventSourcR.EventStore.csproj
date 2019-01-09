@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <DocumentationFile>C:\Users\admin\Source\Repos\EventSourcR\src\EventSourcR.EventStore\EventSourcR.EventStore.xml</DocumentationFile>
+    <Description>An Event Store persistance implementation for Event SourcR.</Description>
   </PropertyGroup>
 
   <ItemGroup>

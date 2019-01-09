@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <DocumentationFile>C:\Users\admin\Source\Repos\EventSourcR\src\EventSourcR.EntityFrameworkCore\EventSourcR.EntityFrameworkCore.xml</DocumentationFile>
+    <Description>An Entity Framework Core persistance implementation for Event SourcR.</Description>
   </PropertyGroup>
 
   <ItemGroup>

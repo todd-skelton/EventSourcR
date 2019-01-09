@@ -38,6 +38,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventSourcR.SqlServer.React
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServerReaderSample", "samples\SqlServerReaderSample\SqlServerReaderSample.csproj", "{6A530736-D366-4EA1-8AE1-43EC1311DEBA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{EEC5C5E4-E82B-4483-88B2-A6C148799BD4}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Directory.Build.props = samples\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{2B2790D3-D8F6-4649-8311-D8E9CE6D8F81}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9E3E2E1-21A3-428E-BCDD-BA210237418B}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		logo.png = logo.png
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +127,8 @@ Global
 		{7EF30331-5513-49BA-8C8B-C3726A71E472} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 		{E0D7DE00-2604-41ED-BE6D-2E0134FD97CE} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
 		{6A530736-D366-4EA1-8AE1-43EC1311DEBA} = {52663E18-1CC8-4D63-A2E9-DB9E1AFBBD38}
+		{EEC5C5E4-E82B-4483-88B2-A6C148799BD4} = {EF218427-BABD-499B-9887-BF3956500CD4}
+		{2B2790D3-D8F6-4649-8311-D8E9CE6D8F81} = {EF218427-BABD-499B-9887-BF3956500CD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BF3A756-D3F6-4C8E-A381-4CAC3DE8E02F}

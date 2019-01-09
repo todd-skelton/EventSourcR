@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <DocumentationFile>C:\Users\admin\Source\Repos\EventSourcR\src\EventSourcR.EntityFrameworkCore.SqlServer\EventSourcR.EntityFrameworkCore.SqlServer.xml</DocumentationFile>
+    <Description>Entity Framework Core migration files for creating a SQL Server database to use with Event SourcR.</Description>
   </PropertyGroup>
 
   <ItemGroup>

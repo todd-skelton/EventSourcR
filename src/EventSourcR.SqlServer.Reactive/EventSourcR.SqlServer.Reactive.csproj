@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <DocumentationFile>C:\Users\admin\Source\Repos\EventSourcR\src\EventSourcR.SqlServer.Reactive\EventSourcR.SqlServer.Reactive.xml</DocumentationFile>
+    <Description>A reactor implementation for SQL Server using the SQL Service Broker and Reactive Extensions for Event SourcR.</Description>
   </PropertyGroup>
 
   <ItemGroup>

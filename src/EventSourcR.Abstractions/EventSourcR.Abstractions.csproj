@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EventSourcR</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <DocumentationFile>C:\Users\admin\Source\Repos\EventSourcR\src\EventSourcR.Abstractions\EventSourcR.Abstractions.xml</DocumentationFile>
+    <Description>Common abstractions for Event SourcR.</Description>
   </PropertyGroup>
-
 </Project>

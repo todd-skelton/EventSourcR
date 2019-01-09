@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventSourcR.SqlServer.Reactive</name>
+    </assembly>
+    <members>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.TraceLevel">
+            <summary>
+            Gets or sets the trace switch.
+            </summary>
+            <value>
+            The trace switch.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.TraceListener">
+            <summary>
+            Gets or Sets the TraceListener.
+            </summary>
+            <value>
+            The logger.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.CultureInfo">
+            <summary>
+            Gets or sets the culture info.
+            </summary>
+            <value>
+            The culture information five letters iso code.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.Encoding">
+            <summary>
+            Gets or sets the encoding use to convert database strings.
+            </summary>
+            <value>
+            The encoding.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.DataBaseObjectsNamingConvention">
+            <summary>
+            Return the database objects naming convention for created objects used to receive notifications. 
+            </summary>
+            <value>
+            The data base objects naming.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.Status">
+            <summary>
+            Gets the EventReactor status.
+            </summary>
+            <value>
+            The TableDependencyStatus enumeration status.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.TableName">
+            <summary>
+            Gets name of the table.
+            </summary>
+            <value>
+            The name of the table.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.Base.TableDependency.SchemaName">
+            <summary>
+            Gets or sets the name of the schema.
+            </summary>
+            <value>
+            The name of the schema.
+            </value>
+        </member>
+        <member name="M:EventSourcR.SqlServer.Reactive.Base.TableDependency.Start(System.Int32,System.Int32)">
+            <summary>
+            Starts monitoring table's content changes.
+            </summary>
+            <param name="timeOut">The WAITFOR timeout in seconds.</param>
+            <param name="watchDogTimeOut">The WATCHDOG timeout in seconds.</param>
+            <returns></returns>
+            <exception cref="T:EventSourcR.SqlServer.Reactive.Base.Exceptions.NoSubscriberException"></exception>
+            <exception cref="T:EventSourcR.SqlServer.Reactive.Base.Exceptions.NoSubscriberException"></exception>
+        </member>
+        <member name="M:EventSourcR.SqlServer.Reactive.Base.TableDependency.Stop">
+            <summary>
+            Stops monitoring table's content changes.
+            </summary>
+        </member>
+        <member name="T:EventSourcR.SqlServer.Reactive.Enumerations.ConversationEndpointState">
+            <summary>
+            https://docs.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-conversation-endpoints-transact-sql?view=sql-server-2017
+            </summary>
+        </member>
+        <member name="T:EventSourcR.SqlServer.Reactive.EventReactor">
+            <summary>
+            Monitor SQL Server event changes.
+            </summary>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.EventReactor.ActivateDatabaseLoging">
+            <summary>
+            Gets or sets a value indicating whether activate database loging and event viewer loging.
+            </summary>
+            <remarks>
+            Only a member of the sysadmin fixed server role or a user with ALTER TRACE permissions can use it.
+            </remarks>
+            <value>
+            <c>true</c> if [activate database loging]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.EventReactor.ServiceAuthorization">
+            <summary>
+            Specifies the owner of the service to the specified database user.
+            When a new service is created it is owned by the principal specified in the AUTHORIZATION clause. Server, database, and schema names cannot be specified. The service_name must be a valid sysname.
+            When the current user is dbo or sa, owner_name may be the name of any valid user or role.
+            Otherwise, owner_name must be the name of the current user, the name of a user that the current user has IMPERSONATE permission for, or the name of a role to which the current user belongs.
+            </summary>
+        </member>
+        <member name="P:EventSourcR.SqlServer.Reactive.EventReactor.QueueExecuteAs">
+            <summary>
+            Specifies the SQL Server database user account under which the activation stored procedure runs.
+            SQL Server must be able to check the permissions for this user at the time that the queue activates the stored procedure. For aWindows domain user, the server must be connected to the domain
+            when the procedure is activated or when activation fails.For a SQL Server user, Service Broker always checks the permissions.EXECUTE AS SELF means that the stored procedure executes as the current user.
+            </summary>
+        </member>
+        <member name="M:EventSourcR.SqlServer.Reactive.EventReactor.#ctor(EventSourcR.ITypeMapper,EventSourcR.IEventSerializer,EventSourcR.SqlServer.EventStoreOptions,EventSourcR.SqlServer.Reactive.Base.Abstracts.ITableDependencyFilter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EventSourcR.SqlServer.Reactive.EventReactor" /> class.
+            </summary>
+        </member>
+        <member name="M:EventSourcR.SqlServer.Reactive.EventReactor.Start(System.Int32,System.Int32)">
+            <summary>
+            Starts monitoring table's content changes.
+            </summary>
+            <param name="timeOut">The WAITFOR timeout in seconds.</param>
+            <param name="watchDogTimeOut">The WATCHDOG timeout in seconds.</param>
+            <returns></returns>
+            <exception cref="T:EventSourcR.SqlServer.Reactive.Base.Exceptions.NoSubscriberException"></exception>
+            <exception cref="T:EventSourcR.SqlServer.Reactive.Base.Exceptions.NoSubscriberException"></exception>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.EventNotificationType">
+            <value>
+            System message type for event notification messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.QueryNotificationType">
+            <value>
+            System message type for query notification messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.FailedRemoteServiceBindingType">
+            <value>
+            System message type for message indicating failed remote service binding.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.FailedRouteType">
+            <value>
+            System message type for message indicating failed route.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.MissingRemoteServiceBindingType">
+            <value>
+            System message type for message indicating missing remote service binding.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.MissingRouteType">
+            <value>
+            System message type for message indicating missing route.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.DialogTimerType">
+            <value>
+            System message type for dialog timer messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.EndDialogType">
+            <value>
+            System message type for message indicating end of dialog.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.ErrorType">
+            <value>
+            System message type for error messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.DescriptionType">
+            <value>
+            System message type for diagnostic description messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.QueryType">
+            <value>
+            System message type for diagnostic query messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.StatusType">
+            <value>
+            System message type for diagnostic status messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Messages.SqlMessageTypes.EchoType">
+            <value>
+            System message type for echo service messages.
+            </value>
+        </member>
+        <member name="F:EventSourcR.SqlServer.Reactive.Resources.SqlScripts.SelectUserGrants">
+            <summary>
+            Security Audit Report
+            1) List all access provisioned to a sql user or windows user/group directly 
+            2) List all access provisioned to a sql user or windows user/group through a database or application role
+            3) List all access provisioned to the public role
+            
+            Columns Returned
+            UserName        : SQL or Windows/Active Directory user cccount.This could also be an Active Directory group.
+            UserType        : Value will be either 'SQL User' or 'Windows User'.  This reflects the type of user defined for the SQL Server user account.
+            DatabaseUserName: Name of the associated user as defined in the database user account.  The database user may not be the same as the server user.
+            Role            : The role name.This will be null if the associated permissions to the object are defined at directly on the user account, otherwise this will be the name of the role that the user is a member of.
+            PermissionType  : Type of permissions the user/role has on an object. Examples could include CONNECT, EXECUTE, SELECT DELETE, INSERT, ALTER, CONTROL, TAKE OWNERSHIP, VIEW DEFINITION, etc. This value may not be populated for all roles.  Some built in roles have implicit permission definitions.
+            PermissionState : Reflects the state of the permission type, examples could include GRANT, DENY, etc. This value may not be populated for all roles.  Some built in roles have implicit permission definitions.
+            ObjectType      : Type of object the user/role is assigned permissions on.Examples could include USER_TABLE, SQL_SCALAR_FUNCTION, SQL_INLINE_TABLE_VALUED_FUNCTION, SQL_STORED_PROCEDURE, VIEW, etc. This value may not be populated for all roles.  Some built in roles have implicit permission definitions.
+            ObjectName      : Name of the object that the user/role is assigned permissions on. This value may not be populated for all roles.  Some built in roles have implicit permission definitions.
+            ColumnName      : Name of the column of the object that the user/role is assigned permissions on.This value is only populated if the object is a table, view or a table value function.  
+            </summary>
+        </member>
+    </members>
+</doc>
