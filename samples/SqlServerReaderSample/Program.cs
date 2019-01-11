@@ -41,7 +41,7 @@ namespace SqlServerReaderSample
                 services.AddTransient<IEventStore, EventStore>();
                 services.AddSingleton<IEventReactor, EventReactor>();
             })
-            .Execute<LogLiveEventsReactively>()
+            //.Execute<LogLiveEventsReactively>()
             .Execute<LogLiveEventsByPolling>()
             .Build();
     }
