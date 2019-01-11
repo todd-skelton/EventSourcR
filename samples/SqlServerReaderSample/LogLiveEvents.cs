@@ -61,6 +61,8 @@ namespace SqlServerReaderSample
 
             var stopWatch = new Stopwatch();
 
+            var counter = 0;
+
             long currentEvent = await _store.GetLastestEventNumber();
 
             while(stopWatch.Elapsed < TimeSpan.FromMinutes(1))
@@ -71,17 +73,20 @@ namespace SqlServerReaderSample
 
                 if (last is null)
                 {
-                    Thread.Sleep(50);
+                    await Task.Delay(50);
                     continue;
                 }
 
                 stopWatch.Restart();
 
-                currentEvent = last.EventNumber;
-
                 foreach(var @event in events)
                 {
-                    Console.WriteLine(@event.Data);
+                    // if the event is recieved out of order, start the query over.
+                    if (currentEvent + 1 != @event.EventNumber) break;
+
+                    Console.Write($"\r{++counter}");
+
+                    currentEvent++;
                 }
             }
             Console.WriteLine("No new events detected for 1 minute. Shutting down...");

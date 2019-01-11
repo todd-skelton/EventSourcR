@@ -50,7 +50,7 @@ namespace InMemorySample
 
                 await _repository.Save(account);
 
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
             }
 
             Console.WriteLine("Reading back events directly from event store:");

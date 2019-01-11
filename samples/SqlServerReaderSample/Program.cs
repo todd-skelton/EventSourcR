@@ -42,7 +42,7 @@ namespace SqlServerReaderSample
                 services.AddSingleton<IEventReactor, EventReactor>();
             })
             .Execute<LogLiveEventsReactively>()
-            //.Execute<LogLiveEventsByPolling>()
+            .Execute<LogLiveEventsByPolling>()
             .Build();
     }
 }

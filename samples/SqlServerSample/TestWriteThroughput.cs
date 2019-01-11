@@ -25,7 +25,7 @@ namespace SqlServerSample
 
             var tasks = new List<Task>();
 
-            var max = 100;
+            var max = 10000;
 
             Console.WriteLine($"Testing {max} events");
             stopWatch.Start();
