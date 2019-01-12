@@ -4,14 +4,15 @@ using EventSourcR.Extensions;
 using EventSourcR.InMemory;
 using InMemorySample.BankAccounts;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace InMemorySample
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Build().Run(args);
+            await Build().Run(args);
         }
 
         static IConsole Build() =>

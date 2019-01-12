@@ -7,14 +7,15 @@ using EventSourcR.JsonEventSerializer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace EfCoreSample
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Build().Run(args);
+            await Build().Run(args);
         }
 
         static IConsole Build() =>

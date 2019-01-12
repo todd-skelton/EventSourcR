@@ -14,7 +14,7 @@ namespace SqlServerSample
     {
         static async Task Main(string[] args)
         {
-            await Build().RunAsync(args);
+            await Build().Run(args);
         }
 
         static IConsole Build() =>
@@ -33,7 +33,8 @@ namespace SqlServerSample
                 services.AddTransient<IPendingEventFactory, PendingEventFactory>();
                 services.AddTransient<IRepository<ShoppingCart>, Repository<ShoppingCart>>();
             })
-            .Execute<TestWriteThroughput>()
+            .Execute<RepositoryThroughput>()
+            .Execute<EventStoreThroughput>()
             .Build();
     }
 }

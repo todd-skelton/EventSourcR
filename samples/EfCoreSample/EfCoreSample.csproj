@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConsoleBuildR" Version="3.0.0-dev-201901031437" />
+    <PackageReference Include="ConsoleBuildR" Version="3.0.0-dev-201901111933" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview.18572.1" />
   </ItemGroup>
 

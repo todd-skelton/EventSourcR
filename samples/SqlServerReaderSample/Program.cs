@@ -18,7 +18,7 @@ namespace SqlServerReaderSample
         {
             try
             {
-                await Build().RunAsync(args);
+                await Build().Run(args);
             }
             catch(Exception ex)
             {
@@ -41,8 +41,8 @@ namespace SqlServerReaderSample
                 services.AddTransient<IEventStore, EventStore>();
                 services.AddSingleton<IEventReactor, EventReactor>();
             })
-            //.Execute<LogLiveEventsReactively>()
-            .Execute<LogLiveEventsByPolling>()
+            .Execute<LogLiveEventsReactively>()
+            //.Execute<LogLiveEventsByPolling>()
             .Build();
     }
 }

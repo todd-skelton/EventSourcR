@@ -20,49 +20,56 @@ namespace EventSourcR.SqlServer
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
-        public virtual async Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
+        public virtual Task Append(Guid aggregateId, long expectedAggregateVersion, IEnumerable<IPendingEvent> pendingEvents)
         {
-            using (var connection = new SqlConnection(_options.ConnectionString))
+            // From testing, returning a task has better performance than using await/async on sql methods.
+            return Task.Run(() =>
             {
-                await connection.OpenAsync();
-
-                using (var transaction = connection.BeginTransaction(IsolationLevel.Snapshot))
+                using (var connection = new SqlConnection(_options.ConnectionString))
                 {
-                    foreach (var @event in pendingEvents)
-                    {
-                        var command = new SqlCommand($@"INSERT INTO {_options.EventsTableName} VALUES(@eventId, @eventType, @aggregateId, @aggregateType, @aggregateVersion, @serializedData, @serializedMetadata, @recorded)", connection, transaction);
-                        command.Parameters.AddWithValue("@eventId", Guid.NewGuid());
-                        command.Parameters.AddWithValue("@eventType", @event.EventType);
-                        command.Parameters.AddWithValue("@aggregateId", aggregateId);
-                        command.Parameters.AddWithValue("@aggregateType", @event.AggregateType);
-                        command.Parameters.AddWithValue("@aggregateVersion", ++expectedAggregateVersion);
-                        command.Parameters.AddWithValue("@serializedData", _serializer.Serialize(@event.Data));
-                        command.Parameters.AddWithValue("@serializedMetadata", _serializer.Serialize(@event.Metadata));
-                        command.Parameters.AddWithValue("@recorded", DateTimeOffset.Now);
-                        await command.ExecuteNonQueryAsync();
-                    }
+                    connection.Open();
 
-                    transaction.Commit();
+                    using (var transaction = connection.BeginTransaction(IsolationLevel.Snapshot))
+                    {
+                        foreach (var @event in pendingEvents)
+                        {
+                            var command = new SqlCommand($@"INSERT INTO {_options.EventsTableName} VALUES(@eventId, @eventType, @aggregateId, @aggregateType, @aggregateVersion, @serializedData, @serializedMetadata, @recorded)", connection, transaction);
+                            command.Parameters.AddWithValue("@eventId", Guid.NewGuid());
+                            command.Parameters.AddWithValue("@eventType", @event.EventType);
+                            command.Parameters.AddWithValue("@aggregateId", aggregateId);
+                            command.Parameters.AddWithValue("@aggregateType", @event.AggregateType);
+                            command.Parameters.AddWithValue("@aggregateVersion", ++expectedAggregateVersion);
+                            command.Parameters.AddWithValue("@serializedData", _serializer.Serialize(@event.Data));
+                            command.Parameters.AddWithValue("@serializedMetadata", _serializer.Serialize(@event.Metadata));
+                            command.Parameters.AddWithValue("@recorded", DateTimeOffset.Now);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
                 }
-            }
+            });
         }
 
-        public virtual async Task<long> GetLastestEventNumber()
+        public virtual Task<long> GetLastestEventNumber()
         {
             var query = $"SELECT MAX(EventNumber) FROM {_options.EventsTableName}";
 
-            using (var connection = new SqlConnection(_options.ConnectionString))
+            return Task.Run(() =>
             {
-                var command = new SqlCommand(query, connection);
+                using (var connection = new SqlConnection(_options.ConnectionString))
+                {
+                    var command = new SqlCommand(query, connection);
 
-                await connection.OpenAsync();
+                    connection.Open();
 
-                var reader = await command.ExecuteReaderAsync();
+                    var reader = command.ExecuteReader();
 
-                await reader.ReadAsync();
+                    reader.Read();
 
-                return reader.GetInt64(0);
-            }
+                    return reader.GetInt64(0);
+                }
+            });
         }
 
         public virtual Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate

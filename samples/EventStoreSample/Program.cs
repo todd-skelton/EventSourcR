@@ -16,9 +16,9 @@ namespace EventStoreSample
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Build().Run(args);
+            await Build().Run(args);
         }
 
         static IConsole Build() =>
@@ -37,7 +37,7 @@ namespace EventStoreSample
                 connection.ConnectAsync().Wait();
 
                 services.AddSingleton(connection);
-                
+
                 services.AddTransient<IEventStore, EventSourcR.EventStore.EventStore>();
                 services.AddTransient<IPendingEventFactory, PendingEventFactory>();
                 services.AddTransient<IRepository<Ticket>, Repository<Ticket>>();
@@ -48,11 +48,11 @@ namespace EventStoreSample
 
     public class TestThroughput : IExecutable
     {
-        private readonly IServiceProvider _provider;
+        private readonly IRepository<Ticket> _repository;
 
-        public TestThroughput(IServiceProvider provider)
+        public TestThroughput(IRepository<Ticket> repository)
         {
-            _provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public async Task Execute(string[] args)
@@ -63,26 +63,21 @@ namespace EventStoreSample
 
             stopWatch.Start();
 
-            for (var x = 0; x < 1000; x++)
+            for (var x = 0; x < 10000; x++)
             {
-                tasks.Add(Task.Run(async () =>
+                tasks.Add(Task.Run(() =>
                 {
-                    using (var scope = _provider.CreateScope())
-                    {
-                        var repository = scope.ServiceProvider.GetService<IRepository<Ticket>>();
+                    var id = Guid.NewGuid();
 
-                        var id = Guid.NewGuid();
+                    var ticket = new Ticket(id);
 
-                        var ticket = new Ticket(id);
+                    string ticketNo = rand.Next(100, 1000) + "-" + rand.Next(100, 1000);
 
-                        string ticketNo = rand.Next(100, 1000) + "-" + rand.Next(100, 1000);
+                    var openTicket = new OpenTicket(ticketNo);
 
-                        var openTicket = new OpenTicket(ticketNo);
+                    ticket.Handle(openTicket);
 
-                        ticket.Handle(openTicket);
-
-                        await repository.Save(ticket);
-                    }
+                    return _repository.Save(ticket);
                 }));
             }
 
@@ -92,9 +87,9 @@ namespace EventStoreSample
 
             var time = stopWatch.Elapsed;
 
-            Console.WriteLine($"1000 Tickets took {time}");
+            Console.WriteLine($"10000 Tickets took {time}");
 
-            Console.WriteLine($"Throughput: {1000 / time.TotalSeconds} per second");
+            Console.WriteLine($"Throughput: {10000 / time.TotalSeconds} per second");
 
             return;
         }

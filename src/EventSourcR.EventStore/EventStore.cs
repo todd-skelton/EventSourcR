@@ -32,7 +32,7 @@ namespace EventSourcR.EventStore
                 eventDataList.Add(new EventData(Guid.NewGuid(), @event.EventType, true, Encoding.UTF8.GetBytes(_serializer.Serialize(@event.Data)), Encoding.UTF8.GetBytes(_serializer.Serialize(@event.Metadata))));
             }
 
-            return _connection.AppendToStreamAsync(aggregateType + "-" + aggregateId, expectedAggregateVersion - 1, eventDataList);
+            return _connection.ConditionalAppendToStreamAsync(aggregateType + "-" + aggregateId, expectedAggregateVersion - 1, eventDataList);
         }
 
         public Task<IEnumerable<IRecordedEvent>> GetAggregateEvents<T>(long fromEventNumber, int maxCount) where T : IAggregate

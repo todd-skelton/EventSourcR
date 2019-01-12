@@ -31,13 +31,16 @@ namespace EventSourcR
 
         public async Task Save(T aggregate)
         {
-            var pendingEvents = new List<IPendingEvent>();
+            await _eventStore.Append(aggregate.Id, aggregate.Version, GetPendingEvents(aggregate));
+            aggregate.ClearPendingEvents();
+        }
+
+        private IEnumerable<IPendingEvent> GetPendingEvents(T aggregate)
+        {
             foreach (var @event in aggregate.PendingEvents)
             {
-                pendingEvents.Add(_eventFactory.Create(aggregate, @event));
+                yield return _eventFactory.Create(aggregate, @event);
             }
-            await _eventStore.Append(aggregate.Id, aggregate.Version, pendingEvents);
-            aggregate.ClearPendingEvents();
         }
     }
 }

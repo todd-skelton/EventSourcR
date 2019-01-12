@@ -4,7 +4,6 @@ using SqlServerSample.ShoppingCarts;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SqlServerReaderSample
@@ -18,7 +17,7 @@ namespace SqlServerReaderSample
             _reactor = reactor ?? throw new ArgumentNullException(nameof(reactor));
         }
 
-        public Task Execute(string[] args)
+        public async Task Execute(string[] args)
         {
             Console.WriteLine("Subscribing to new events");
 
@@ -34,15 +33,13 @@ namespace SqlServerReaderSample
 
             while (stopWatch.Elapsed < TimeSpan.FromMinutes(1))
             {
-                Thread.Sleep(100);
+                await Task.Delay(50);
             }
 
             Console.WriteLine("");
             Console.WriteLine("No new events detected for 1 minute. Shutting down...");
 
             sub.Dispose();
-
-            return Task.CompletedTask;
         }
     }
 
@@ -89,6 +86,8 @@ namespace SqlServerReaderSample
                     currentEvent++;
                 }
             }
+
+            Console.WriteLine("");
             Console.WriteLine("No new events detected for 1 minute. Shutting down...");
         }
     }
