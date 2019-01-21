@@ -3,7 +3,6 @@ using EventSourcR;
 using InMemorySample.BankAccounts;
 using InMemorySample.BankAccounts.Commands;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace InMemorySample
@@ -25,7 +24,7 @@ namespace InMemorySample
 
             var openAccount = new OpenBankAccount();
 
-            account.Handle(openAccount);
+            account.Issue(openAccount);
 
             await _repository.Save(account);
 
@@ -37,9 +36,9 @@ namespace InMemorySample
                 var amount = rand.Next(0, 100);
 
                 if (isCredit)
-                    account.Handle(new CreditBankAccount(amount));
+                    account.Issue(new CreditBankAccount(amount));
                 else
-                    account.Handle(new DebitBankAccount(amount));
+                    account.Issue(new DebitBankAccount(amount));
 
                 foreach(var @event in account.PendingEvents)
                 {

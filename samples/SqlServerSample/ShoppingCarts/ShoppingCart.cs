@@ -22,8 +22,7 @@ namespace SqlServerSample.ShoppingCarts
         //list of products
         public IReadOnlyDictionary<Guid, Product> Products => products.AsReadOnly();
 
-        // validate the command and raise event if it's valid
-        public override void Handle(ICommand<ShoppingCart> command)
+        public override void Issue<TCommand>(TCommand command)
         {
             switch (command)
             {
@@ -43,8 +42,7 @@ namespace SqlServerSample.ShoppingCarts
             }
         }
 
-        // update the state of the aggregate
-        protected override void Handle(IEvent<ShoppingCart> @event)
+        protected override void Handle<TEvent>(TEvent @event)
         {
             switch (@event)
             {

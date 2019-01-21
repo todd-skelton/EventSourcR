@@ -13,7 +13,7 @@ namespace EfCoreSample.Orders
         public string ShippingAddressLine1 { get; private set; }
         public string ShippingAddressLine2 { get; private set; }
 
-        public override void Handle(ICommand<Order> command)
+        public override void Issue<TCommand>(TCommand command)
         {
             switch (command)
             {
@@ -28,7 +28,7 @@ namespace EfCoreSample.Orders
             }
         }
 
-        protected override void Handle(IEvent<Order> @event)
+        protected override void Handle<TEvent>(TEvent @event)
         {
             switch (@event)
             {

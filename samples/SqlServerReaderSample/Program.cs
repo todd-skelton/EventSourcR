@@ -7,7 +7,6 @@ using EventSourcR.SqlServer.Reactive;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SqlServerSample.ShoppingCarts;
-using System;
 using System.Threading.Tasks;
 
 namespace SqlServerReaderSample
@@ -16,14 +15,7 @@ namespace SqlServerReaderSample
     {
         static async Task Main(string[] args)
         {
-            try
-            {
-                await Build().Run(args);
-            }
-            catch(Exception ex)
-            {
-                Console.Write(ex);
-            }
+            await Build().Run(args);
         }
 
         static IConsole Build() =>
@@ -41,8 +33,8 @@ namespace SqlServerReaderSample
                 services.AddTransient<IEventStore, EventStore>();
                 services.AddSingleton<IEventReactor, EventReactor>();
             })
-            .Execute<LogLiveEventsReactively>()
-            //.Execute<LogLiveEventsByPolling>()
+            //.Execute<LogLiveEventsReactively>()
+            .Execute<LogLiveEventsByPolling>()
             .Build();
     }
 }

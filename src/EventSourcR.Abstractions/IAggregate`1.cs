@@ -10,7 +10,8 @@ namespace EventSourcR
     {
         long PendingVersion { get; }
         IEnumerable<IEvent<T>> PendingEvents { get; }
-        void Apply(IEvent<T> events);
+        void Issue<TCommand>(TCommand command) where TCommand : ICommand<T>;
+        void Apply<TEvent>(TEvent events) where TEvent : IEvent<T>;
         void ClearPendingEvents();
     }
 }

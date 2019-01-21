@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace EventSourcR.SqlServer
                 {
                     connection.Open();
 
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Snapshot))
+                    using (var transaction = connection.BeginTransaction())
                     {
                         foreach (var @event in pendingEvents)
                         {

@@ -14,7 +14,7 @@ namespace EventStoreSample.Tickets
         public string TicketNumber { get; private set; }
         public TicketState State { get; private set; }
 
-        public override void Handle(ICommand<Ticket> command)
+        public override void Issue<TCommand>(TCommand command)
         {
             switch (command)
             {
@@ -27,7 +27,7 @@ namespace EventStoreSample.Tickets
             }
         }
 
-        protected override void Handle(IEvent<Ticket> @event)
+        protected override void Handle<TEvent>(TEvent @event)
         {
             switch (@event)
             {

@@ -18,7 +18,9 @@ namespace EventSourcR
 
         public virtual IEnumerable<IEvent<T>> PendingEvents => _pendingEvents.AsReadOnly();
 
-        public virtual void Apply(IEvent<T> @event)
+        public abstract void Issue<TCommand>(TCommand command) where TCommand : ICommand<T>;
+
+        public virtual void Apply<TEvent>(TEvent @event) where TEvent : IEvent<T>
         {
             Handle(@event);
             Version++;
@@ -31,11 +33,9 @@ namespace EventSourcR
             _pendingEvents.Clear();
         }
 
-        public abstract void Handle(ICommand<T> command);
+        protected abstract void Handle<TEvent>(TEvent @event) where TEvent : IEvent<T>;
 
-        protected abstract void Handle(IEvent<T> @event);
-
-        protected virtual void RaiseEvent(IEvent<T> @event)
+        protected virtual void RaiseEvent<TEvent>(TEvent @event) where TEvent : IEvent<T>
         {
             Handle(@event);
             _pendingEvents.Add(@event);

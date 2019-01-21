@@ -12,7 +12,7 @@ namespace InMemorySample.BankAccounts
         public decimal Balance { get; private set; }
         public bool IsInGoodStanding { get; private set; }
 
-        public override void Handle(ICommand<BankAccount> command)
+        public override void Issue<TCommand>(TCommand command)
         {
             switch (command)
             {
@@ -32,7 +32,7 @@ namespace InMemorySample.BankAccounts
             }
         }
 
-        protected override void Handle(IEvent<BankAccount> @event)
+        protected override void Handle<TEvent>(TEvent @event)
         {
             switch (@event)
             {
