@@ -18,7 +18,7 @@ namespace EventSourcR
 
         public virtual IEnumerable<IEvent<T>> PendingEvents => _pendingEvents.AsReadOnly();
 
-        public abstract void Issue<TCommand>(TCommand command) where TCommand : ICommand<T>;
+        public abstract void Execute<TCommand>(TCommand command) where TCommand : ICommand<T>;
 
         public virtual void Apply<TEvent>(TEvent @event) where TEvent : IEvent<T>
         {

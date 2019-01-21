@@ -42,7 +42,7 @@ namespace EfCoreSample
 
                         var createOrder = new CreateOrder(orderNo);
 
-                        order.Issue(createOrder);
+                        order.Execute(createOrder);
 
                         await repository.Save(order);
                     }

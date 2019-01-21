@@ -14,7 +14,7 @@ namespace EventStoreSample.Tickets
         public string TicketNumber { get; private set; }
         public TicketState State { get; private set; }
 
-        public override void Issue<TCommand>(TCommand command)
+        public override void Execute<TCommand>(TCommand command)
         {
             switch (command)
             {

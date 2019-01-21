@@ -12,7 +12,7 @@ namespace InMemorySample.BankAccounts
         public decimal Balance { get; private set; }
         public bool IsInGoodStanding { get; private set; }
 
-        public override void Issue<TCommand>(TCommand command)
+        public override void Execute<TCommand>(TCommand command)
         {
             switch (command)
             {

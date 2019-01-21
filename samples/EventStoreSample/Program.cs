@@ -75,7 +75,7 @@ namespace EventStoreSample
 
                     var openTicket = new OpenTicket(ticketNo);
 
-                    ticket.Issue(openTicket);
+                    ticket.Execute(openTicket);
 
                     return _repository.Save(ticket);
                 }));

@@ -13,7 +13,7 @@ namespace EfCoreSample.Orders
         public string ShippingAddressLine1 { get; private set; }
         public string ShippingAddressLine2 { get; private set; }
 
-        public override void Issue<TCommand>(TCommand command)
+        public override void Execute<TCommand>(TCommand command)
         {
             switch (command)
             {

@@ -23,7 +23,7 @@ namespace EfCoreSample
 
             var createOrder = new CreateOrder("168-984");
 
-            order.Issue(createOrder);
+            order.Execute(createOrder);
 
             await _repository.Save(order);
 
@@ -31,7 +31,7 @@ namespace EfCoreSample
 
             var addShipping = new AddShippingAddress("12525 W Binter St", "Wichita, KS, 67235");
 
-            order.Issue(addShipping);
+            order.Execute(addShipping);
 
             await _repository.Save(order);
         }

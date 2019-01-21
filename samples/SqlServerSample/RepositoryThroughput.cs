@@ -30,7 +30,7 @@ namespace SqlServerSample
 
                 var createShoppingCart = new CreateShoppingCart(Guid.NewGuid());
 
-                shoppingCart.Issue(createShoppingCart);
+                shoppingCart.Execute(createShoppingCart);
 
                 return _repository.Save(shoppingCart);
             });
@@ -57,7 +57,7 @@ namespace SqlServerSample
 
                     var createShoppingCart = new CreateShoppingCart(Guid.NewGuid());
 
-                    shoppingCart.Issue(createShoppingCart);
+                    shoppingCart.Execute(createShoppingCart);
 
                     return _repository.Save(shoppingCart);
                 }));

@@ -24,7 +24,7 @@ namespace InMemorySample
 
             var openAccount = new OpenBankAccount();
 
-            account.Issue(openAccount);
+            account.Execute(openAccount);
 
             await _repository.Save(account);
 
@@ -36,9 +36,9 @@ namespace InMemorySample
                 var amount = rand.Next(0, 100);
 
                 if (isCredit)
-                    account.Issue(new CreditBankAccount(amount));
+                    account.Execute(new CreditBankAccount(amount));
                 else
-                    account.Issue(new DebitBankAccount(amount));
+                    account.Execute(new DebitBankAccount(amount));
 
                 foreach(var @event in account.PendingEvents)
                 {

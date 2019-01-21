@@ -20,10 +20,10 @@ namespace SqlServerSample
         {
             var shoppingCart = new ShoppingCart(Guid.NewGuid());
 
-            shoppingCart.Issue(new CreateShoppingCart(Guid.NewGuid()));
-            shoppingCart.Issue(new AddShoppingCartProduct(Guid.NewGuid(), "S.Pellegrino Sparkling Natural Mineral Water, 33.8 fl oz. (Pack of 12)", 15.53M, 4));
-            shoppingCart.Issue(new AddShoppingCartProduct(Guid.NewGuid(), "Samsung 64GB 100MB/s (U3) MicroSD EVO Select Memory Card with Adapter (MB-ME64GA/AM)", 12.99M, 1));
-            shoppingCart.Issue(new AddShoppingCartProduct(Guid.NewGuid(), "Samsung 970 PRO 512GB - NVMe PCIe M.2 2280 SSD (MZ-V7P512BW)", 167.99M, 1));
+            shoppingCart.Execute(new CreateShoppingCart(Guid.NewGuid()));
+            shoppingCart.Execute(new AddShoppingCartProduct(Guid.NewGuid(), "S.Pellegrino Sparkling Natural Mineral Water, 33.8 fl oz. (Pack of 12)", 15.53M, 4));
+            shoppingCart.Execute(new AddShoppingCartProduct(Guid.NewGuid(), "Samsung 64GB 100MB/s (U3) MicroSD EVO Select Memory Card with Adapter (MB-ME64GA/AM)", 12.99M, 1));
+            shoppingCart.Execute(new AddShoppingCartProduct(Guid.NewGuid(), "Samsung 970 PRO 512GB - NVMe PCIe M.2 2280 SSD (MZ-V7P512BW)", 167.99M, 1));
 
             await _repository.Save(shoppingCart);
         }

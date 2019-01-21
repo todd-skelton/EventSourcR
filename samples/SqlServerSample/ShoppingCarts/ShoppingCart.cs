@@ -22,7 +22,7 @@ namespace SqlServerSample.ShoppingCarts
         //list of products
         public IReadOnlyDictionary<Guid, Product> Products => products.AsReadOnly();
 
-        public override void Issue<TCommand>(TCommand command)
+        public override void Execute<TCommand>(TCommand command)
         {
             switch (command)
             {

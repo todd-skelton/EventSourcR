@@ -28,7 +28,7 @@ namespace EfCoreSample
 
                 var createOrder = new CreateOrder(orderNo);
 
-                order.Issue(createOrder);
+                order.Execute(createOrder);
 
                 _repository.Save(order);
             }
